@@ -1,0 +1,28 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html *{
+  font-family: $font-default !important;
+}
+/* Default styles for desktop screens */
+body {
+  background-image: url('/images/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  font-family: $font-default;
+  width: 100%;
+  height: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+}
