@@ -4,6 +4,7 @@
   align-items: center;
   text-transform: uppercase;
   color: $color-light;
+  height: 56.25%;
 }
 
 .container {
@@ -12,21 +13,8 @@
 }
 
 .nav-menu {
-  margin: 0 auto;
-  text-align: center;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-li {
-  margin: 62px 78px;
+  text-align: center;
 }
 
 a {
@@ -38,9 +26,9 @@ a {
 
 .title {
   text-align: center;
-  font-size: 5,208vw;
+  font-size: 100px;
   margin: 0 auto;
-  letter-spacing: 75px;
+  letter-spacing: 3.906vw;
 }
 
 .subtitle {

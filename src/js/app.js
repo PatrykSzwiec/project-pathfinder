@@ -67,35 +67,12 @@ const app = {
     const thisApp = this;
     const aboutContainer = document.querySelector(select.containerOf.about);
     thisApp.about = new About(aboutContainer);
-
-    // Select all links at home section using querySelectorAll
-    thisApp.links = document.querySelectorAll(select.home.links);
-
-    for(let link of thisApp.links){
-      // Find the closest ancestor element with .link class
-      const linkContainer = link.closest('.link');
-
-      if (linkContainer) {
-        linkContainer.addEventListener('click', function(event){
-          event.preventDefault();
-
-          const href = link.getAttribute('href');
-          if (href.startsWith('#')) {
-            // Create const to extract a part of string (1 mean first string for example booking)
-            const id = href.substring(1);
-            thisApp.activatePage(id);
-            window.location.hash = '#/' + id;
-          } else {
-            window.location.href = href;
-          }
-        });
-      }
-    }
   },
 
   init: function(){
     const thisApp = this;
     thisApp.initPages();
+    thisApp.initAbout();
   }
 };
 
