@@ -1,44 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project Pathfinder</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project Pathfinder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <nav class="nav-menu">
-                <ul>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#finder">Finder</a></li>
-                </ul>
-            </nav>
-            <h1 class="title">Pathfinder</h1>
-            <h2 class="subtitle">For travelers</h2>
-            </div>
-        </div>
-      </header>
+      <div class="container">
+        <nav class="nav-menu">
+          <a href="#about">About</a>
+          <a href="#finder">Finder</a>
+        </nav>
+        <h1 class="title">Pathfinder</h1>
+        <h2 class="subtitle">For travelers</h2>
+      </div>
+    </header>
 
     <div id="pages">
 
-        <section id="about">
-            <div class="about-wrapper container">
-            </div>
-        </section>
+      <section id="about">
+        <div class="about-wrapper container">
+        </div>
+      </section>
 
-        <section id="finder">
-            <div class="finder-wrapper container">
-            </div>
-        </section>
+      <section id="finder">
+        <div class="finder-wrapper container">
+        </div>
+      </section>
     </div>
 
     <!-- TEMPLATE ABOUT -->
+      <script id="template-about-widget" type="text/x-handlebars-template">
+        <div class="about-widget">
+          <div class="about-row">
+            <div class="about-line">
+              <img src="/images/1.jpg">
+              <h2>PLAN YOUR JOURNEYS</h2>
+              <h3>Pick attraction and book hotels</h3>
+            </div>
+            <div class="about-line">
+              <img src="/images/2.jpg">
+              <h2>MINIMALIZE BOREDOM</h2>
+              <h3>Pick routes that are short and attractive</h3>
+            </div>
+          </div>
+        </div>
+      </script>
+
 
     <!-- TEMPLATE FINDER -->
+      <script id="template-finder-widget" type="text/x-handlebars-template">
+        <div class="pathfinder-widget">
+          <h2>Draw routes</h2>
+          <div class="finder-app">
+
+          </div>
+        </div>
+      </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="js/app.js" type="module"></script>
