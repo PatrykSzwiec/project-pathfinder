@@ -1,5 +1,6 @@
 import {select, classNames} from './settings.js';
 import About from './componenets/About.js';
+import Finder from './componenets/Finder.js';
 
 const app = {
   initPages: function(){
@@ -69,10 +70,16 @@ const app = {
     thisApp.about = new About(aboutContainer);
   },
 
+  initFinder: function(){
+    const thisApp = this;
+    const finderContainer = document.querySelector(select.containerOf.finder);
+    thisApp.finder = new Finder(finderContainer);
+  },
   init: function(){
     const thisApp = this;
     thisApp.initPages();
     thisApp.initAbout();
+    thisApp.initFinder();
   }
 };
 

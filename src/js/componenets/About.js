@@ -1,4 +1,4 @@
-import { select, templates } from '../settings.js';
+import {templates} from '../settings.js';
 
 class About {
   constructor(aboutContainer){
@@ -15,9 +15,6 @@ class About {
 
     const generatedHTML = templates.aboutWidget();
     thisAbout.dom.wrapper.innerHTML = generatedHTML;
-
-    thisAbout.dom.linkImage = thisAbout.dom.wrapper.querySelectorAll(select.home.linkImage);
-
   }
 
 }

@@ -6,12 +6,12 @@ export const select = {
 
   containerOf: {
     pages: '#pages',
-    about: '.about-wrapper',
-    finder: '.finder-wrapper',
+    about: '.about-wrapper.container',
+    finder: '.finder-wrapper.container',
   },
 
   nav: {
-    links: '.nav-menu a'
+    links: '.nav-link'
   }
 };
 
