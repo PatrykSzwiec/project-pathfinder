@@ -10,6 +10,13 @@ body {
   background-color: $color-dark;
   font-size: 16px;
   line-height: 1.5;
+  margin: 0 auto;
+  overflow-y: scroll;
+}
+
+.container {
+  max-width: 1920px;
+  max-height: 1090px;
 }
 
 #pages {
@@ -18,8 +25,7 @@ body {
   }
 
   > .active {
-    display: block;
-    margin-top: -300px;
+    display: flex;
   }
 }
 
