@@ -29,6 +29,7 @@ export const classNames = {
   },
   finder: {
     field: 'field',
+    active: 'active',
   }
 };
 

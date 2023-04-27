@@ -91,8 +91,8 @@ class Finder {
 
     // get row and col info from field elem attrs
     const field = {
-      row: fieldElem.getAttribute('data-row'),
-      col: fieldElem.getAttribute('data-col')
+      row: parseInt(fieldElem.getAttribute('data-row'), 10),
+      col: parseInt(fieldElem.getAttribute('data-col'), 10),
     };
 
     // if field with this row and col is true -> unselect it
@@ -116,7 +116,7 @@ class Finder {
         if(field.col < 10) edgeFields.push(thisFinder.grid[field.row][field.col+1]); //get field on the right value
         if(field.row > 1) edgeFields.push(thisFinder.grid[field.row-1][field.col]); //get field on the top value
         if(field.row < 10) edgeFields.push(thisFinder.grid[field.row+1][field.col]); //get field on the bottom value
-
+        console.log(edgeFields);
         // if clicked field doesn't touch at least one that is already selected -> show alert and finish function
         if(!edgeFields.includes(true)) {
           alert('A new field should touch at least one that is already selected!');

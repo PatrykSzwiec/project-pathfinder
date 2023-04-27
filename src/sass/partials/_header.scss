@@ -3,8 +3,16 @@
   background-size: cover;
   height: 1089px;
   width:100vw;
+  //position: relative;
 }
 
+.gradient{
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+  width:100vw;
+  height: 1089px;
+ 
+}
 .header-wrapper{
   max-width:1920px;
 }
