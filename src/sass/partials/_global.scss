@@ -4,13 +4,13 @@
 
 html *{
   font-family: $font-default !important;
+  color: $color-light;
 }
 /* Default styles for desktop screens */
 body {
   background-color: $color-dark;
   font-size: 16px;
   margin: 0;
-  padding: 0;
   overflow-y: scroll;
   max-height: 2180px;
   max-width: 100%;
@@ -30,14 +30,8 @@ body {
   }
 }
 
-#center-line {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  margin-left: -1px; /* adjust the value to center the line */
-  height: 2000px;
-  width: 5px;
-  background-color: pink; /* set the line color */
-  opacity: 1; /* adjust the opacity as desired */
-  z-index: 9999; /* set the z-index to */
+.footer-content p{
+  text-align: center;
+  margin-top: -30vw;
+  color: $color-light;
 }

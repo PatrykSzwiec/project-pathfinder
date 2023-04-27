@@ -1,13 +1,12 @@
 .header {
   background-image: url('/images/background.jpg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 100vh;
-  max-width: 100%;
+  background-size: cover;
+  height: 1089px;
+  width:100vw;
 }
 
-.nav {
-
+.header-wrapper{
+  max-width:1920px;
 }
 
 .nav-link{

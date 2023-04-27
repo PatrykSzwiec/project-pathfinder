@@ -1,7 +1,7 @@
 export const select = {
   templateOf: {
     aboutWidget: '#template-about-widget',
-    finderWidget: '#template-finder-widget',
+    finderPage: '#template-finder-widget',
   },
 
   containerOf: {
@@ -10,8 +10,11 @@ export const select = {
     finder: '.finder-wrapper.container',
   },
 
+  finder: {
+    grid: '.table',
+  },
   nav: {
-    links: '.nav-link'
+    links: '.nav-link',
   }
 };
 
@@ -29,7 +32,7 @@ export const templates = {
     document.querySelector(select.templateOf.aboutWidget).innerHTML
   ),
 
-  finderWidget: Handlebars.compile(
-    document.querySelector(select.templateOf.finderWidget).innerHTML
+  finderPage: Handlebars.compile(
+    document.querySelector(select.templateOf.finderPage).innerHTML
   ),
 };

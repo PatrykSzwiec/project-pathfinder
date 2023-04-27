@@ -1,12 +1,42 @@
-.about-widget {
-  margin-top: -13vw;
-  margin-left: -15.5vw;
+.about-widget{
+  margin-top: -21.7vw;
+  margin-left: -15.6vw;
+  color: $color-light;
+}
+.card-one h2 {
+  font-size: 3.5vw;
+  font-weight: $font-bold;
+  letter-spacing: 0.3vw;
+  margin-top: -10vw;
+  margin-left: 22vw;
 }
 
-.card {
-  h2, h3{
-    margin-top: -10vw;
-    margin-left: 10vw;
-  }
+.card-one h3 {
+  font-size: 1.7vw;
+  font-weight: $font-regular;
+  letter-spacing: 0.4vw;
+  margin-left: 22vw;
+  margin-top: -2vw;
 }
 
+.card-two {
+  margin-left: 22.5vw;
+  margin-top: 6vw;
+}
+
+.card-two h2 {
+  font-size: 3.1vw;
+  font-weight: $font-bold;
+  letter-spacing: 0.3vw;
+  margin-top: -30.5vw;
+  margin-left: -18.5vw;
+}
+
+.card-two h3{
+  font-size: 1.7vw;
+  font-weight: $font-regular;
+  letter-spacing: 0.4vw;
+  margin-top: -1.5vw;
+  margin-left: -18.5vw;
+
+}

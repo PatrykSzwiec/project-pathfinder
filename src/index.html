@@ -9,14 +9,13 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="center-line"></div>
     <header class="header">
       <div class="container">
         <div class="row">
-          <div class="nav col-md-6 d-flex justify-content-end">
+          <div class="col-md-6 d-flex justify-content-end">
             <a class="nav-link nav-about" href="#about">ABOUT</a>
           </div>
-          <div class="nav col-md-6 d-flex justify-content-start">
+          <div class="col-md-6 d-flex justify-content-start">
             <a class="nav-link nav-finder" href="#finder">FINDER</a>
           </div>
         </div>
@@ -41,21 +40,29 @@
         </div>
       </section>
     </div>
+
+    <footer>
+      <div id="footer-content">
+        <p>All copyright reserved</p>
+      </div>
+    </footer>
     <!-- TEMPLATE ABOUT -->
       <script id="template-about-widget" type="text/x-handlebars-template">
         <div class="about-widget">
-          <div class="container">
+          <div class="container container-about">
             <div class="row">
-              <div class="card col-12">
+              <div class="card-one col-12">
                 <img src="/images/1.jpg">
                 <h2>PLAN YOUR JOURNEYS</h2>
-                <h3>Pick attraction and book hotels</h3>
+                <h3>Pick attractions and book hotels</h3>
               </div>
             </div>
             <div class="row">
-              <img src="/images/2.jpg">
-              <h2>MINIMALIZE BOREDOM</h2>
-              <h3>Pick routes that are short and attractive</h3>
+              <div class="card-two col-12">
+                <img src="/images/2.jpg">
+                <h2>MINIMALIZE BOREDOM</h2>
+                <h3>Pick routes that are short and attractive</h3>
+              </div>
             </div>
           </div>
         </div>
@@ -65,9 +72,9 @@
     <!-- TEMPLATE FINDER -->
       <script id="template-finder-widget" type="text/x-handlebars-template">
         <div class="pathfinder-widget">
-          <div class="container">
-
-          </div>
+          <h1>{{ title }}</h1>
+          <div class="table"></div>
+          <button class="btn">{{ buttonText }}</button>
         </div>
       </script>
 
