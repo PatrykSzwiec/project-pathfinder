@@ -9,14 +9,15 @@ html *{
 body {
   background-color: $color-dark;
   font-size: 16px;
-  line-height: 1.5;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
   overflow-y: scroll;
+  max-height: 2180px;
+  max-width: 100%;
 }
 
 .container {
   max-width: 1920px;
-  max-height: 1090px;
 }
 
 #pages {
@@ -31,12 +32,12 @@ body {
 
 #center-line {
   position: fixed;
-			top: 0;
-			left: 50%;
-			margin-left: -1px; /* adjust the value to center the line */
-			height: 2000px;
-      width:5px;
-			background-color: pink; /* set the line color */
-			opacity: 1; /* adjust the opacity as desired */
-			z-index: 9999; /* set the z-index to */
+  top: 0;
+  left: 50%;
+  margin-left: -1px; /* adjust the value to center the line */
+  height: 2000px;
+  width: 5px;
+  background-color: pink; /* set the line color */
+  opacity: 1; /* adjust the opacity as desired */
+  z-index: 9999; /* set the z-index to */
 }

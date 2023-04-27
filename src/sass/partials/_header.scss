@@ -1,20 +1,43 @@
 .header {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
-  background-size: cover;
-  height:100vh;
+  background-size: contain;
+  height: 100vh;
+  max-width: 100%;
 }
+
+.nav {
+
+}
+
+.nav-link{
+  margin-top: 2.7vw;
+  padding: 0 2vw 0 4.75vw;
+  text-decoration: none;
+  color: $color-light;
+  font-size: 1.5vw;
+  font-weight: $font-semibold;
+  text-transform: uppercase;
+  letter-spacing: 2.25px;
+}
+
 /* Title styles */
 .title {
-  font-size: 100px;
-  font-weight: bold;
-  letter-spacing: 75px;
-  color: #fff;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+  margin: 8vw auto 0 1vw;
+  font-size: 5vw;
+  text-transform: uppercase;
+  font-weight: $font-black;
+  text-align: center;
+  letter-spacing: 1vw;
+  color: $color-light;
 }
 
 .subtitle {
-  font-size: 2rem;
-  color: #fff;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+  margin-top: 0.4vw;
+  margin-left: 33.5vw;
+  font-size: 2vw;
+  letter-spacing: 10.8px;
+  color: $color-grey;
+  text-align: center;
+  text-transform: uppercase;
 }
