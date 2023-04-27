@@ -13,6 +13,7 @@ export const select = {
   finder: {
     grid: '.table',
     submitBtn: '.btn',
+    active: '.active',
   },
   nav: {
     links: '.nav-link',
