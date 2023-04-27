@@ -12,6 +12,7 @@ export const select = {
 
   finder: {
     grid: '.table',
+    submitBtn: '.btn',
   },
   nav: {
     links: '.nav-link',
@@ -24,6 +25,9 @@ export const classNames = {
   },
   pages: {
     active: 'active',
+  },
+  finder: {
+    field: 'field',
   }
 };
 

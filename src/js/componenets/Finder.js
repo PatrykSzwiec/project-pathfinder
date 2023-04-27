@@ -1,4 +1,4 @@
-import {templates, select} from '../settings.js';
+import {templates, select, classNames} from '../settings.js';
 
 class Finder {
   constructor(element){
@@ -39,11 +39,45 @@ class Finder {
     let html = '';
     for(let row = 1; row <= 10; row++) {
       for(let col = 1; col <= 10; col++) {
-        html += '<div class=”field” data-row="' + row + '" data-col="' + col + '"></div>';
+        html += '<div class="field" data-row="' + row + '" data-col="' + col + '"></div>';
       }
     }
 
     thisFinder.element.querySelector(select.finder.grid).innerHTML = html;
+    thisFinder.initActions();
+  }
+
+  changeStep(newStep) {
+    const thisFinder = this;
+    thisFinder.step = newStep;
+    thisFinder.render();
+  }
+
+  initActions() {
+    const thisFinder = this;
+    if(thisFinder.step === 1) {
+      thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
+        e.preventDefault();
+        thisFinder.changeStep(2);
+      });
+
+      thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
+        e.preventDefault();
+        if(e.target.classList.contains(classNames.finder.field)) {
+          thisFinder.toggleField(e.target);
+        }
+      });
+    }
+    else if(thisFinder.step === 2) {
+      // TO DO
+    }
+    else if(thisFinder.step === 3) {
+      // TO DO
+    }
+  }
+
+  toggleField(){
+    
   }
 
 }
