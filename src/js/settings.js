@@ -6,8 +6,8 @@ export const select = {
 
   containerOf: {
     pages: '#pages',
-    about: '.about-wrapper.container',
-    finder: '.finder-wrapper.container',
+    about: '.about-wrapper',
+    finder: '.finder-wrapper',
   },
 
   finder: {

@@ -48,6 +48,7 @@
     },
     "dependencies": {
         "all": "^0.0.0",
+        "aos": "^2.3.4",
         "json-server": "^0.16.3",
         "sass": "^1.35.1"
     }

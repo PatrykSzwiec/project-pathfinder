@@ -3,7 +3,7 @@ import {templates} from '../settings.js';
 class About {
   constructor(aboutContainer){
     const thisAbout = this;
-
+    
     thisAbout.render(aboutContainer);
   }
 

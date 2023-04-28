@@ -12,12 +12,7 @@ body {
   font-size: 16px;
   margin: 0;
   overflow-y: scroll;
-  max-height: 2180px;
   max-width: 100%;
-}
-
-.container {
-  max-width: 1920px;
 }
 
 #pages {
@@ -30,8 +25,12 @@ body {
   }
 }
 
-.footer-content p{
+footer{
+  position: relative;
+  margin-top: calc(100% + 20px);
   text-align: center;
-  margin-top: -30vw;
+}
+
+.footer-content p{
   color: $color-light;
 }

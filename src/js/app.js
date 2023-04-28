@@ -1,3 +1,4 @@
+/* global AOS */
 import {select, classNames} from './settings.js';
 import About from './componenets/About.js';
 import Finder from './componenets/Finder.js';
@@ -80,6 +81,7 @@ const app = {
     thisApp.initPages();
     thisApp.initAbout();
     thisApp.initFinder();
+    AOS.init();
   }
 };
 

@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Project Pathfinder</title>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="header">
-      <div class="container">
+      <div class="col-12">
         <div class="row">
           <div class="col-md-6 d-flex justify-content-end">
             <a class="nav-link nav-about" href="#about">ABOUT</a>
@@ -32,12 +34,12 @@
     <div id="pages">
 
       <section id="about">
-        <div class="about-wrapper container">
+        <div class="about-wrapper">
         </div>
       </section>
 
       <section id="finder">
-        <div class="finder-wrapper container">
+        <div class="finder-wrapper">
         </div>
       </section>
     </div>
@@ -49,23 +51,21 @@
     </footer>
     <!-- TEMPLATE ABOUT -->
       <script id="template-about-widget" type="text/x-handlebars-template">
-        <div class="about-widget">
-          <div class="container container-about">
-            <div class="row">
-              <div class="card-one col-12">
-                <img src="/images/1.jpg">
+        <div class="about-widget col-10 offset-1">
+          <section class="section-1" data-aos="fade-right" data-aos-delay="300">
+            <img src="/images/1.jpg">
+            <div class="journeys">
                 <h2>PLAN YOUR JOURNEYS</h2>
-                <h3>Pick attractions and book hotels</h3>
-              </div>
+                <h3> Pick attractions and book hotels</h3>
             </div>
-            <div class="row">
-              <div class="card-two col-12">
-                <img src="/images/2.jpg">
-                <h2>MINIMALIZE BOREDOM</h2>
-                <h3>Pick routes that are short and attractive</h3>
-              </div>
+          </section>
+          <section class="section-2" data-aos="fade-left">
+            <img src="/images/2.jpg">
+            <div class="boredom">
+              <h2>MINIMALIZE BOREDOM</h2>
+              <h3> Pick routes that are short and attractive</h3>
             </div>
-          </div>
+          </section>
         </div>
       </script>
 
@@ -80,10 +80,10 @@
       </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.js"
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="js/app.js" type="module"></script>
 </body>
