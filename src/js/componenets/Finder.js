@@ -80,7 +80,6 @@ class Finder {
       });
     }
     else if(thisFinder.step === 2) {
-      thisFinder.startFinish();
     }
     else if(thisFinder.step === 3) {
       // TO DO
@@ -126,68 +125,13 @@ class Finder {
       }
 
       // select clicked field
-      const selectedType = thisFinder.selectedType;
       thisFinder.grid[field.row][field.col] = true;
       fieldElem.classList.add(classNames.finder.active);
-      fieldElem.setAttribute('data-type', selectedType);
-      if (selectedType === 'start') {
-        fieldElem.textContent = 'S';
-      } else if (selectedType === 'finish') {
-        fieldElem.textContent = 'F';
-      }
     }
   }
 
   startFinish(){
-    const thisFinder = this;
-    const gridElem = thisFinder.element.querySelector(select.finder.grid);
 
-    // Remove previous event listener for field click
-    gridElem.removeEventListener('click', toggleStartFinish);
-
-    // Add new event listener for field click
-    gridElem.addEventListener('click', toggleStartFinish);
-
-    function toggleStartFinish(event) {
-      event.preventDefault();
-
-      const target = event.target;
-      const isActive = target.classList.contains(classNames.finder.active);
-      const isStart = target.classList.contains(classNames.finder.start);
-      const isFinish = target.classList.contains(classNames.finder.finish);
-
-      // Check if clicked field is already active
-      if (isActive) {
-        // If clicked field is start, remove start class
-        if (isStart) {
-          target.classList.remove(classNames.finder.start);
-          thisFinder.start = null;
-        }
-        // If clicked field is finish, remove finish class
-        else if (isFinish) {
-          target.classList.remove(classNames.finder.finish);
-          thisFinder.finish = null;
-        }
-      }
-      else {
-        // If start field is not yet selected, add start class
-        if (!thisFinder.start) {
-          target.classList.add(classNames.finder.start);
-          thisFinder.start = {
-            row: parseInt(target.dataset.row),
-            col: parseInt(target.dataset.col),
-          };
-        }
-        // If finish field is not yet selected, add finish class
-        else if (!thisFinder.finish) {
-          target.classList.add(classNames.finder.finish);
-          thisFinder.finish = {
-            row: parseInt(target.dataset.row),
-            col: parseInt(target.dataset.col),
-          };
-        }
-      }
-    }
   }
 }
 
