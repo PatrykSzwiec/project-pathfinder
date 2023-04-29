@@ -1,8 +1,9 @@
-.finder-wrapper.container{
+.finder-wrapper{
   margin-top: -30vw;
   width: 100vw;
   height: 100vw;
   text-align: center;
+  position: relative;
 }
 
 .pathfinder-widget {
@@ -38,4 +39,12 @@
 
 .field.active{
   background-color: $color-brown;
+}
+
+.field.start{
+  background-color: $color-green;
+}
+
+.field.finish{
+  background-color: $color-green;
 }
