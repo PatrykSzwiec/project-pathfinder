@@ -14,6 +14,7 @@ export const select = {
     grid: '.table',
     submitBtn: '.btn',
     active: '.active',
+    field: '.field',
   },
   nav: {
     links: '.nav-link',

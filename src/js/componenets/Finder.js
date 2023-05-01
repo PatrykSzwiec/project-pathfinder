@@ -18,7 +18,7 @@ class Finder {
         thisFinder.grid[row][col] = false;
       }
     }
-    console.log(thisFinder.grid);
+    //console.log(thisFinder.grid);
 
     // render view for the first time
     thisFinder.render();
@@ -70,6 +70,22 @@ class Finder {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
         thisFinder.changeStep(2);
+
+        // Update the grid based on thisFinder.grid
+        const table = document.querySelector('.table');
+        const fields = table.querySelectorAll('.field');
+        fields.forEach(field => {
+          const x = parseInt(field.dataset.row);
+          const y = parseInt(field.dataset.col);
+          const isActive = thisFinder.grid[x][y];
+          if (isActive) {
+            field.classList.add('active');
+          } else {
+            field.classList.remove('active');
+          }
+        });
+
+        
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -79,13 +95,27 @@ class Finder {
         }
       });
     }
+
     else if(thisFinder.step === 2) {
+      thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
+        e.preventDefault();
+        thisFinder.changeStep(3);
+      });
+
+      thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
+        e.preventDefault();
+        if (e.target.classList.contains(classNames.finder.field)) {
+          thisFinder.startFinish(e.target);
+        }
+      });
     }
+
     else if(thisFinder.step === 3) {
       // TO DO
     }
   }
 
+  /* STEP 1 - allow user to select fields for route  */
   toggleField(fieldElem) {
     const thisFinder = this;
 
@@ -116,7 +146,8 @@ class Finder {
         if(field.col < 10) edgeFields.push(thisFinder.grid[field.row][field.col+1]); //get field on the right value
         if(field.row > 1) edgeFields.push(thisFinder.grid[field.row-1][field.col]); //get field on the top value
         if(field.row < 10) edgeFields.push(thisFinder.grid[field.row+1][field.col]); //get field on the bottom value
-        console.log(edgeFields);
+        //console.log(edgeFields);
+
         // if clicked field doesn't touch at least one that is already selected -> show alert and finish function
         if(!edgeFields.includes(true)) {
           alert('A new field should touch at least one that is already selected!');
@@ -127,11 +158,47 @@ class Finder {
       // select clicked field
       thisFinder.grid[field.row][field.col] = true;
       fieldElem.classList.add(classNames.finder.active);
+
+      console.log(thisFinder.grid);
     }
   }
 
-  startFinish(){
+  sameField(field1, field2) {
+    return field1.x === field2.x && field1.y === field2.y;
+  }
 
+  /* STEP 2 - allow user to select start and finish field from selected one */
+  startFinish(){
+    const fields = document.querySelectorAll('.field.active');
+
+    let startField = null;
+    let finishField = null;
+
+    fields.forEach(field => {
+      field.addEventListener('click', () => {
+        if (!field.classList.contains('start')) {
+          if (!startField) {
+            field.classList.add('start');
+            startField = field;
+          } else if (!finishField) {
+            field.classList.add('finish');
+            finishField = field;
+          }
+        } else {
+          field.classList.remove('start');
+          if (finishField === field) {
+            finishField = null;
+          }
+        }
+        if (startField && finishField && finishField !== startField) {
+          fields.forEach(field => {
+            if (field !== startField && field !== finishField) {
+              field.classList.remove('start', 'finish');
+            }
+          });
+        }
+      });
+    });
   }
 }
 
