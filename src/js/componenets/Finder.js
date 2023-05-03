@@ -163,43 +163,42 @@ class Finder {
     }
   }
 
-  sameField(field1, field2) {
-    return field1.x === field2.x && field1.y === field2.y;
-  }
-
   /* STEP 2 - allow user to select start and finish field from selected one */
-  startFinish(){
-    const fields = document.querySelectorAll('.field.active');
+  startFinish(fieldElem){
+    const thisFinder = this;
 
-    let startField = null;
-    let finishField = null;
+    // check if start or finish fields already exist
+    const startField = thisFinder.element.querySelector(`.${classNames.finder.start}`);
+    const finishField = thisFinder.element.querySelector(`.${classNames.finder.finish}`);
+    const isActive = fieldElem.classList.contains(classNames.finder.active);
 
-    fields.forEach(field => {
-      field.addEventListener('click', () => {
-        if (!field.classList.contains('start')) {
-          if (!startField) {
-            field.classList.add('start');
-            startField = field;
-          } else if (!finishField) {
-            field.classList.add('finish');
-            finishField = field;
-          }
-        } else {
-          field.classList.remove('start');
-          if (finishField === field) {
-            finishField = null;
-          }
-        }
-        if (startField && finishField && finishField !== startField) {
-          fields.forEach(field => {
-            if (field !== startField && field !== finishField) {
-              field.classList.remove('start', 'finish');
-            }
-          });
-        }
-      });
-    });
+    if(isActive){
+      if (!startField) {
+        // add start class to the clicked field
+        fieldElem.classList.add(classNames.finder.start);
+      } else if (!finishField && !fieldElem.classList.contains(classNames.finder.start)) {
+        // add finish class to the clicked field
+        fieldElem.classList.add(classNames.finder.finish);
+
+      } else if (fieldElem.classList.contains(classNames.finder.start)){
+        // remove start class when user clicked start field
+        const fields = thisFinder.element.querySelectorAll(`.${classNames.finder.field}`);
+        fields.forEach(field => {
+          field.classList.remove(classNames.finder.start);
+          field.classList.remove(classNames.finder.finish);
+        });
+
+      } else if (fieldElem.classList.contains(classNames.finder.finish)){
+        // remove finish class when user clicked finish field
+        fieldElem.classList.remove(classNames.finder.finish);
+      }
+    } else {
+      alert ('Select field from selected route!');
+    }
+
+
   }
+
 }
 
 export default Finder;
