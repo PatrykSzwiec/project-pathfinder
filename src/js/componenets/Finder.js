@@ -100,6 +100,32 @@ class Finder {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
         thisFinder.changeStep(3);
+
+        // Update the grid based on thisFinder.grid
+        const table = document.querySelector('.table');
+        const fields = table.querySelectorAll('.field');
+        fields.forEach(field => {
+          const x = parseInt(field.dataset.row);
+          const y = parseInt(field.dataset.col);
+          // Get row/col of active / start / finish fields
+          const isActive = thisFinder.grid[x][y];
+          const isStart = thisFinder.startField && x === thisFinder.startField.row && y === thisFinder.startField.col;
+          const isFinish = thisFinder.finishField && x === thisFinder.finishField.row && y === thisFinder.finishField.col;
+          // If statements to check if field contain class active / start / finish
+          if (isActive || isStart) {
+            field.classList.add('active');
+            if(isStart){
+              field.classList.add(classNames.finder.start);
+            } else if (isFinish) {
+              field.classList.add(classNames.finder.finish);
+            }
+            thisFinder.grid[x][y] = true;
+          } else {
+            field.classList.remove('active', classNames.finder.start, classNames.finder.finish);
+            thisFinder.grid[x][y] = false;
+          }
+        
+        });
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -159,7 +185,7 @@ class Finder {
       thisFinder.grid[field.row][field.col] = true;
       fieldElem.classList.add(classNames.finder.active);
 
-      console.log(thisFinder.grid);
+      //console.log(thisFinder.grid);
     }
   }
 
@@ -172,16 +198,27 @@ class Finder {
     const finishField = thisFinder.element.querySelector(`.${classNames.finder.finish}`);
     const isActive = fieldElem.classList.contains(classNames.finder.active);
 
+    // get row and col info from field elem attrs
+    const field = {
+      row: parseInt(fieldElem.getAttribute('data-row'), 10),
+      col: parseInt(fieldElem.getAttribute('data-col'), 10),
+    };
+
     if(isActive){
       if (!startField) {
-        // add start class to the clicked field
+        // add start class to the clicked field and update the finishField object
         fieldElem.classList.add(classNames.finder.start);
+
+        thisFinder.startField = { row: field.row, col: field.col };
+
       } else if (!finishField && !fieldElem.classList.contains(classNames.finder.start)) {
-        // add finish class to the clicked field
+        // add finish class to the clicked field and update the finishField object
         fieldElem.classList.add(classNames.finder.finish);
 
+        thisFinder.finishField = { row: field.row, col: field.col };
+
       } else if (fieldElem.classList.contains(classNames.finder.start)){
-        // remove start class when user clicked start field
+        // remove start and finish class when user clicked start field
         const fields = thisFinder.element.querySelectorAll(`.${classNames.finder.field}`);
         fields.forEach(field => {
           field.classList.remove(classNames.finder.start);
