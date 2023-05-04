@@ -62,6 +62,36 @@ class Finder {
     thisFinder.step = newStep;
     thisFinder.render();
   }
+  // Method to update grid between steps 1-2 / 2-3
+  gridUpdate(){
+    const thisFinder = this;
+    // Update the grid based on thisFinder.grid
+    const table = document.querySelector('.table');
+    const fields = table.querySelectorAll('.field');
+    fields.forEach(field => {
+      const x = parseInt(field.dataset.row);
+      const y = parseInt(field.dataset.col);
+      // Get row/col of active / start / finish fields
+      const isActive = thisFinder.grid[x][y];
+      const isStart = thisFinder.startField && x === thisFinder.startField.row && y === thisFinder.startField.col;
+      const isFinish = thisFinder.finishField && x === thisFinder.finishField.row && y === thisFinder.finishField.col;
+      // If statements to check if field contain class active / start / finish
+      if (isActive || isStart) {
+        field.classList.add('active');
+        if(isStart){
+          field.classList.add(classNames.finder.start);
+        } else if (isFinish) {
+          field.classList.add(classNames.finder.finish);
+        }
+        thisFinder.grid[x][y] = true;
+      } else {
+        field.classList.remove('active', classNames.finder.start, classNames.finder.finish);
+        thisFinder.grid[x][y] = false;
+      }
+
+    });
+
+  }
 
   initActions() {
     const thisFinder = this;
@@ -71,21 +101,7 @@ class Finder {
         e.preventDefault();
         thisFinder.changeStep(2);
 
-        // Update the grid based on thisFinder.grid
-        const table = document.querySelector('.table');
-        const fields = table.querySelectorAll('.field');
-        fields.forEach(field => {
-          const x = parseInt(field.dataset.row);
-          const y = parseInt(field.dataset.col);
-          const isActive = thisFinder.grid[x][y];
-          if (isActive) {
-            field.classList.add('active');
-          } else {
-            field.classList.remove('active');
-          }
-        });
-
-        
+        thisFinder.gridUpdate();
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -101,31 +117,7 @@ class Finder {
         e.preventDefault();
         thisFinder.changeStep(3);
 
-        // Update the grid based on thisFinder.grid
-        const table = document.querySelector('.table');
-        const fields = table.querySelectorAll('.field');
-        fields.forEach(field => {
-          const x = parseInt(field.dataset.row);
-          const y = parseInt(field.dataset.col);
-          // Get row/col of active / start / finish fields
-          const isActive = thisFinder.grid[x][y];
-          const isStart = thisFinder.startField && x === thisFinder.startField.row && y === thisFinder.startField.col;
-          const isFinish = thisFinder.finishField && x === thisFinder.finishField.row && y === thisFinder.finishField.col;
-          // If statements to check if field contain class active / start / finish
-          if (isActive || isStart) {
-            field.classList.add('active');
-            if(isStart){
-              field.classList.add(classNames.finder.start);
-            } else if (isFinish) {
-              field.classList.add(classNames.finder.finish);
-            }
-            thisFinder.grid[x][y] = true;
-          } else {
-            field.classList.remove('active', classNames.finder.start, classNames.finder.finish);
-            thisFinder.grid[x][y] = false;
-          }
-        
-        });
+        thisFinder.gridUpdate();
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -165,10 +157,10 @@ class Finder {
 
       // if grid isn't empty...
       if(gridValues.includes(true)) {
-
         // determine edge fields
         const edgeFields = [];
-        if(field.col > 1) edgeFields.push(thisFinder.grid[field.row][field.col-1]); //get field on the left value
+
+        if(field.col > 1) edgeFields.push(thisFinder.grid[field.row][field.col-1]);//get field on the left value
         if(field.col < 10) edgeFields.push(thisFinder.grid[field.row][field.col+1]); //get field on the right value
         if(field.row > 1) edgeFields.push(thisFinder.grid[field.row-1][field.col]); //get field on the top value
         if(field.row < 10) edgeFields.push(thisFinder.grid[field.row+1][field.col]); //get field on the bottom value
@@ -186,7 +178,12 @@ class Finder {
       fieldElem.classList.add(classNames.finder.active);
 
       //console.log(thisFinder.grid);
+
     }
+  }
+
+  colorHintField() {
+    
   }
 
   /* STEP 2 - allow user to select start and finish field from selected one */
@@ -236,6 +233,10 @@ class Finder {
 
   }
 
+  /* STEP 3- calculate route from start to finish */
+  calculateAllRoutes(){
+   
+  }
 }
 
 export default Finder;
