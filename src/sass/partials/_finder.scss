@@ -41,12 +41,16 @@
   background-color: $color-brown;
 }
 
+.field.shortPath{
+  background-color: greenyellow!important;
+}
+
 .field.start{
-  background-color: $color-green;
+  background-color: $color-green!important;
 }
 
 .field.finish{
-  background-color: red;
+  background-color: red!important;
 }
 
 .field.hint{

@@ -334,6 +334,17 @@ class Finder {
         path.push(startField);
         path.reverse();
         console.log('Shortest path:', path);
+
+        // Add class 'shortPath' to each field in the path
+        path.forEach(({ row, col }) => {
+          const fieldId = `${row},${col}`;
+          [row, col] = fieldId.split(',').map(Number);
+          const fieldElem = document.querySelector(`.field[data-row="${row}"][data-col="${col}"]`);
+          if (fieldElem) {
+            fieldElem.classList.add('shortPath');
+          }
+        });
+
         return;
       }
 
@@ -364,6 +375,7 @@ class Finder {
       queue.splice(queue.indexOf(closestFieldId), 1);
     }
     console.log('No path found');
+
   }
 }
 export default Finder;
