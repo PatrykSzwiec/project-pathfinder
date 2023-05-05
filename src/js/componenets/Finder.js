@@ -74,6 +74,8 @@ class Finder {
       const y = parseInt(field.dataset.col);
       // Get row/col of active / start / finish fields
       const isActive = thisFinder.grid[x][y];
+      //console.log(this.grid[x][y],x,y);
+
       const isStart = thisFinder.startField && x === thisFinder.startField.row && y === thisFinder.startField.col;
       const isFinish = thisFinder.finishField && x === thisFinder.finishField.row && y === thisFinder.finishField.col;
       // If statements to check if field contain class active / start / finish
@@ -89,7 +91,6 @@ class Finder {
         field.classList.remove('active', classNames.finder.start, classNames.finder.finish);
         thisFinder.grid[x][y] = false;
       }
-
     });
 
   }
@@ -239,49 +240,33 @@ class Finder {
   }
 
   /* STEP 3- calculate route from start to finish */
-  getFieldById(id) {
-    const [col, row] = id.split(',');
-    return this.grid[row][col];
+  getFieldElem(row, col) {
+    const id = `${row},${col}`;
+    const { col: colNum, row: rowNum } = this.getFieldById(id);
+    return document.querySelector(`.field[data-row="${rowNum}"][data-col="${colNum}"]`);
   }
 
-  getNeighbors(field) {
-    const { col, row } = field;
+  getNeighbors(rowIndex, colIndex) {
     const neighbors = [];
-  
-    // Check top neighbor
-    if (row > 0) {
-      const topField = this.getField(col, row - 1);
-      if (topField) {
-        neighbors.push(topField);
+    for (let row = rowIndex - 1; row <= rowIndex + 1; row++) {
+      for (let col = colIndex - 1; col <= colIndex + 1; col++) {
+        // Check if neighbor is within bounds of grid
+        if (
+          row >= 0 &&
+          row < this.grid.length &&
+          col >= 0 &&
+          col < this.grid[0].length
+        ) {
+          // Check if neighbor is not the current field and is active
+          if (!(row === rowIndex && col === colIndex) && this.isActive(row, col)) {
+            neighbors.push({ row, col });
+          }
+        }
       }
     }
-  
-    // Check right neighbor
-    if (col < this.numCols - 1) {
-      const rightField = this.getField(col + 1, row);
-      if (rightField) {
-        neighbors.push(rightField);
-      }
-    }
-  
-    // Check bottom neighbor
-    if (row < this.numRows - 1) {
-      const bottomField = this.getField(col, row + 1);
-      if (bottomField) {
-        neighbors.push(bottomField);
-      }
-    }
-  
-    // Check left neighbor
-    if (col > 0) {
-      const leftField = this.getField(col - 1, row);
-      if (leftField) {
-        neighbors.push(leftField);
-      }
-    }
-  
     return neighbors;
   }
+  
 
   calculateAllRoutes() {
     const thisFinder = this;
@@ -291,84 +276,94 @@ class Finder {
     const previous = {};
     const queue = [];
 
+    const grid = this.grid;
+    const start = this.startField;
+    const finish = this.finishField;
 
-    const table = document.querySelector('.table');
-    const fields = table.querySelectorAll('.field');
-    fields.forEach(field => {
-      const x = parseInt(field.dataset.row);
-      const y = parseInt(field.dataset.col);
-      // Check if the current field is active
-      const isActive = thisFinder.grid[x][y];
-      if (isActive) {
-        const id = `${y},${x}`; // Swap x and y to match the format used elsewhere in the code
-        distances[id] = Infinity;
-        previous[id] = null;
-        queue.push(id);
-        console.log(id);
+    // Initialize distances and queue
+    for (let row = 1; row <= 10; row++) {
+      for (let col = 1; col <= 10; col++) {
+        const id = `${row},${col}`;
+        // Check if the current field is active
+        if (grid[row][col]) {
+          // Set distance to 0 for the start field and to Infinity for all other active fields
+          if (row === start.row && col === start.col) {
+            distances[id] = 0;
+          } else {
+            distances[id] = Infinity;
+          }
+
+          previous[id] = null;
+          queue.push(id);
+        }
       }
-    });
-
-    console.log('Distances:', distances);
-    console.log('Previous:', previous);
-
-    // Set distance of start field to 0
-    const startField = thisFinder.startField;
-    if (!startField) {
-      console.error('No start field found');
-      return;
     }
-    console.log('Start field:', startField);
 
-    const startCol = startField.col;
-    const startRow = startField.row;
-    const startId = `${startCol},${startRow}`;
-    distances[startId] = 0;
-
-    // Set finish field
-    const finishField = thisFinder.finishField;
-    console.log('Finish field:', finishField);
+    console.log("Distances: ", distances);
+    console.log("Previous: ", previous);
+    console.log("Queue: ", queue);
 
     while (queue.length > 0) {
       // find the field with the smallest distance in the queue
       let smallestDistance = Infinity;
-      let smallestFieldIndex = 0;
+      let closestFieldId = null;
       for (let i = 0; i < queue.length; i++) {
         if (distances[queue[i]] < smallestDistance) {
           smallestDistance = distances[queue[i]];
-          smallestFieldIndex = i;
+          closestFieldId = queue[i];
         }
       }
 
-      let currentFieldId = queue.splice(smallestFieldIndex, 1)[0];
-      let currentField = thisFinder.getFieldById(currentFieldId);
+      if (closestFieldId === null) {
+        break;
+      }
 
-      console.log('Current field:', currentField);
+      const [currentRow, currentCol] = closestFieldId.split(',').map(Number);
 
       // check if we have reached the finish field
-      if (currentField === finishField) {
+      if (currentRow === finish.row && currentCol === finish.col) {
         let path = [];
+        let currentFieldId = closestFieldId;
         while (previous[currentFieldId]) {
-          path.push(currentFieldId);
+          const [row, col] = currentFieldId.split(',').map(Number);
+          const currentField = { row, col };
+          path.push(currentField);
           currentFieldId = previous[currentFieldId];
         }
-        path.push(currentFieldId);
+        const startField = { row: start.row, col: start.col };
+        path.push(startField);
         path.reverse();
         console.log('Shortest path:', path);
         return;
       }
 
       // calculate the distances to neighboring fields
-      let neighbors = thisFinder.getNeighbors(currentField);
-      neighbors.forEach(neighbor => {
-        let altDistance = distances[currentFieldId] + 1;
-        if (altDistance < distances[neighbor.id]) {
-          distances[neighbor.id] = altDistance;
-          previous[neighbor.id] = currentFieldId;
-          console.log(`Updated distance to ${neighbor.id}: ${distances[neighbor.id]}`);
-          console.log(`Updated previous of ${neighbor.id}: ${previous[neighbor.id]}`);
+      for (let row = currentRow - 1; row <= currentRow + 1; row++) {
+        for (let col = currentCol - 1; col <= currentCol + 1; col++) {
+          // Check if neighbor is within bounds of grid
+          if (
+            row >= 1 &&
+            row <= 10 &&
+            col >= 1 &&
+            col <= 10
+          ) {
+            // Check if neighbor is not the current field and is active
+            if (!(row === currentRow && col === currentCol) && grid[row][col]) {
+              const neighborId = `${row},${col}`;
+              const altDistance = distances[closestFieldId] + 1;
+              if (altDistance < distances[neighborId]) {
+                distances[neighborId] = altDistance;
+                previous[neighborId] = closestFieldId;
+              }
+            }
+          }
         }
-      });
+      }
+
+      // remove the current field from the queue
+      queue.splice(queue.indexOf(closestFieldId), 1);
     }
+    console.log('No path found');
   }
 }
 export default Finder;
