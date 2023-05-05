@@ -61,6 +61,7 @@ class Finder {
     const thisFinder = this;
     thisFinder.step = newStep;
     thisFinder.render();
+    thisFinder.gridUpdate();
   }
   // Method to update grid between steps 1-2 / 2-3
   gridUpdate(){
@@ -100,8 +101,6 @@ class Finder {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
         thisFinder.changeStep(2);
-
-        thisFinder.gridUpdate();
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -116,8 +115,6 @@ class Finder {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
         thisFinder.changeStep(3);
-
-        thisFinder.gridUpdate();
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -129,8 +126,16 @@ class Finder {
     }
 
     else if(thisFinder.step === 3) {
-      // TO DO
+
+      thisFinder.calculateAllRoutes();
+
+      thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
+        e.preventDefault();
+        //thisFinder.changeStep(1);
+      });
+
     }
+    
   }
 
   /* STEP 1 - allow user to select fields for route  */
@@ -234,9 +239,136 @@ class Finder {
   }
 
   /* STEP 3- calculate route from start to finish */
-  calculateAllRoutes(){
-   
+  getFieldById(id) {
+    const [col, row] = id.split(',');
+    return this.grid[row][col];
+  }
+
+  getNeighbors(field) {
+    const { col, row } = field;
+    const neighbors = [];
+  
+    // Check top neighbor
+    if (row > 0) {
+      const topField = this.getField(col, row - 1);
+      if (topField) {
+        neighbors.push(topField);
+      }
+    }
+  
+    // Check right neighbor
+    if (col < this.numCols - 1) {
+      const rightField = this.getField(col + 1, row);
+      if (rightField) {
+        neighbors.push(rightField);
+      }
+    }
+  
+    // Check bottom neighbor
+    if (row < this.numRows - 1) {
+      const bottomField = this.getField(col, row + 1);
+      if (bottomField) {
+        neighbors.push(bottomField);
+      }
+    }
+  
+    // Check left neighbor
+    if (col > 0) {
+      const leftField = this.getField(col - 1, row);
+      if (leftField) {
+        neighbors.push(leftField);
+      }
+    }
+  
+    return neighbors;
+  }
+
+  calculateAllRoutes() {
+    const thisFinder = this;
+    console.log(thisFinder);
+
+    const distances = {};
+    const previous = {};
+    const queue = [];
+
+
+    const table = document.querySelector('.table');
+    const fields = table.querySelectorAll('.field');
+    fields.forEach(field => {
+      const x = parseInt(field.dataset.row);
+      const y = parseInt(field.dataset.col);
+      // Check if the current field is active
+      const isActive = thisFinder.grid[x][y];
+      if (isActive) {
+        const id = `${y},${x}`; // Swap x and y to match the format used elsewhere in the code
+        distances[id] = Infinity;
+        previous[id] = null;
+        queue.push(id);
+        console.log(id);
+      }
+    });
+
+    console.log('Distances:', distances);
+    console.log('Previous:', previous);
+
+    // Set distance of start field to 0
+    const startField = thisFinder.startField;
+    if (!startField) {
+      console.error('No start field found');
+      return;
+    }
+    console.log('Start field:', startField);
+
+    const startCol = startField.col;
+    const startRow = startField.row;
+    const startId = `${startCol},${startRow}`;
+    distances[startId] = 0;
+
+    // Set finish field
+    const finishField = thisFinder.finishField;
+    console.log('Finish field:', finishField);
+
+    while (queue.length > 0) {
+      // find the field with the smallest distance in the queue
+      let smallestDistance = Infinity;
+      let smallestFieldIndex = 0;
+      for (let i = 0; i < queue.length; i++) {
+        if (distances[queue[i]] < smallestDistance) {
+          smallestDistance = distances[queue[i]];
+          smallestFieldIndex = i;
+        }
+      }
+
+      let currentFieldId = queue.splice(smallestFieldIndex, 1)[0];
+      let currentField = thisFinder.getFieldById(currentFieldId);
+
+      console.log('Current field:', currentField);
+
+      // check if we have reached the finish field
+      if (currentField === finishField) {
+        let path = [];
+        while (previous[currentFieldId]) {
+          path.push(currentFieldId);
+          currentFieldId = previous[currentFieldId];
+        }
+        path.push(currentFieldId);
+        path.reverse();
+        console.log('Shortest path:', path);
+        return;
+      }
+
+      // calculate the distances to neighboring fields
+      let neighbors = thisFinder.getNeighbors(currentField);
+      neighbors.forEach(neighbor => {
+        let altDistance = distances[currentFieldId] + 1;
+        if (altDistance < distances[neighbor.id]) {
+          distances[neighbor.id] = altDistance;
+          previous[neighbor.id] = currentFieldId;
+          console.log(`Updated distance to ${neighbor.id}: ${distances[neighbor.id]}`);
+          console.log(`Updated previous of ${neighbor.id}: ${previous[neighbor.id]}`);
+        }
+      });
+    }
   }
 }
-
 export default Finder;
