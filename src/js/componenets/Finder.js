@@ -248,21 +248,19 @@ class Finder {
 
   getNeighbors(rowIndex, colIndex) {
     const neighbors = [];
-    for (let row = rowIndex - 1; row <= rowIndex + 1; row++) {
-      for (let col = colIndex - 1; col <= colIndex + 1; col++) {
-        // Check if neighbor is within bounds of grid
-        if (
-          row >= 0 &&
-          row < this.grid.length &&
-          col >= 0 &&
-          col < this.grid[0].length
-        ) {
-          // Check if neighbor is not the current field and is active
-          if (!(row === rowIndex && col === colIndex) && this.isActive(row, col)) {
-            neighbors.push({ row, col });
-          }
-        }
-      }
+    // Add left and right neighbors
+    if (colIndex > 1 && this.isActive(rowIndex, colIndex - 1)) {
+      neighbors.push({ row: rowIndex, col: colIndex - 1 });
+    }
+    if (colIndex < this.grid[0].length && this.isActive(rowIndex, colIndex + 1)) {
+      neighbors.push({ row: rowIndex, col: colIndex + 1 });
+    }
+    // Add top and bottom neighbors
+    if (rowIndex > 1 && this.isActive(rowIndex - 1, colIndex)) {
+      neighbors.push({ row: rowIndex - 1, col: colIndex });
+    }
+    if (rowIndex < this.grid.length && this.isActive(rowIndex + 1, colIndex)) {
+      neighbors.push({ row: rowIndex + 1, col: colIndex });
     }
     return neighbors;
   }
@@ -299,9 +297,9 @@ class Finder {
       }
     }
 
-    console.log("Distances: ", distances);
-    console.log("Previous: ", previous);
-    console.log("Queue: ", queue);
+    console.log('Distances: ', distances);
+    console.log('Previous: ', previous);
+    console.log('Queue: ', queue);
 
     while (queue.length > 0) {
       // find the field with the smallest distance in the queue
