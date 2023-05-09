@@ -33,6 +33,8 @@ export const classNames = {
     active: 'active',
     start: 'start',
     finish: 'finish',
+    shortPath: 'shortPath',
+    hint: 'hint',
   }
 };
 
