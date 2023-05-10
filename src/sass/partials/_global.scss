@@ -34,3 +34,14 @@ footer{
 .footer-content p{
   color: $color-light;
 }
+
+// MEDIA QUERIES
+@media (max-width: 500px) {
+  footer {
+    margin-top: calc(70% + 20px);
+  }
+
+  .section-2 {
+    top: 15vh !important;
+  }
+}
