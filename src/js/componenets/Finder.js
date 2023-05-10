@@ -63,6 +63,7 @@ class Finder {
     thisFinder.render();
     thisFinder.gridUpdate();
   }
+  
   // Method to update grid between steps 1-2 / 2-3
   gridUpdate(){
     const thisFinder = this;
@@ -154,7 +155,6 @@ class Finder {
       thisFinder.grid[field.row][field.col] = false;
       fieldElem.classList.remove(classNames.finder.active);
       fieldElem.classList.add(classNames.finder.hint);
-    
 
       // remove hint class from neighbors
       if (field.col > 1) {
@@ -205,14 +205,14 @@ class Finder {
           edgeFields.push(bottomValue); //get field on the bottom value
         }
         //console.log(edgeFields);
-  
+
         // if clicked field doesn't touch at least one that is already selected -> show alert and finish function
         if (!edgeFields.includes(true)) {
           alert('A new field should touch at least one that is already selected!');
           return;
         }
       }
-  
+
       // select clicked field
       thisFinder.grid[field.row][field.col] = true;
       //console.log(fieldElem);
@@ -230,7 +230,7 @@ class Finder {
       row: parseInt(fieldElem.getAttribute('data-row'), 10),
       col: parseInt(fieldElem.getAttribute('data-col'), 10),
     };
-  
+
     // loop through every field in the grid and add hint class to neighbors that are not active
     for (let row = 1; row <= 10; row++) {
       for (let col = 1; col <= 10; col++) {
@@ -329,11 +329,11 @@ class Finder {
     const previous = {};
     const queue = [];
     const visited = {};
-  
+
     const grid = this.grid;
     const start = this.startField;
     const finish = this.finishField;
-  
+
     // Initialize distances and queue
     for (let row = 1; row <= 10; row++) {
       for (let col = 1; col <= 10; col++) {
@@ -346,7 +346,7 @@ class Finder {
           } else {
             distances[id] = Infinity;
           }
-  
+
           previous[id] = null;
           queue.push(id);
         }
@@ -362,13 +362,13 @@ class Finder {
           closestFieldId = queue[i];
         }
       }
-  
+
       if (closestFieldId === null) {
         break;
       }
-  
+
       const [currentRow, currentCol] = closestFieldId.split(',').map(Number);
-  
+
       // Check if we have reached the finish field
       if (currentRow === finish.row && currentCol === finish.col) {
         let path = [];
@@ -398,7 +398,7 @@ class Finder {
       // Remove the current field from the queue and mark it as visited
       queue.splice(queue.indexOf(closestFieldId), 1);
       visited[closestFieldId] = true;
-  
+
       // Find the adjacent fields that are active and not visited
       const adjacentFields = [];
       const upId = `${currentRow - 1},${currentCol}`;
@@ -417,7 +417,7 @@ class Finder {
       if (currentCol < 10 && grid[currentRow][currentCol + 1] && !visited[rightId]) {
         adjacentFields.push(rightId);
       }
-  
+
       // Update the distances and previous fields for the adjacent fields
       adjacentFields.forEach(adjacentFieldId => {
         const distanceToAdjacent = distances[closestFieldId] + 1;
@@ -427,7 +427,7 @@ class Finder {
         }
       });
     }
-  
+
     console.log('No path found');
   }
   clearFields() {
@@ -440,7 +440,7 @@ class Finder {
         thisFinder.grid[row][col] = false;
       }
     }
-  
+
     // Clear startField and finishField
     thisFinder.startField = null;
     thisFinder.finishField = null;

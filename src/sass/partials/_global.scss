@@ -8,7 +8,7 @@ html *{
 }
 /* Default styles for desktop screens */
 body {
-  background-color: $color-dark;
+  background-color: $color-fulldark;
   font-size: 16px;
   margin: 0;
   overflow-y: scroll;
@@ -27,7 +27,7 @@ body {
 
 footer{
   position: relative;
-  margin-top: calc(50% + 20px);
+  margin-top: calc(40% + 20px);
   text-align: center;
 }
 
