@@ -18,6 +18,10 @@
   max-width: 1920px;
 }
 
+.row{
+  --bs-gutter-x: 0;
+}
+
 .nav-link{
   margin-top: 2.7vw;
   padding: 0 2vw 0 4.75vw;

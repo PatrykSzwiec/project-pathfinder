@@ -67,8 +67,8 @@ class Finder {
   gridUpdate(){
     const thisFinder = this;
     // Update the grid based on thisFinder.grid
-    const table = document.querySelector('.table');
-    const fields = table.querySelectorAll('.field');
+    const table = document.querySelector(select.finder.grid);
+    const fields = table.querySelectorAll(select.finder.field);
     fields.forEach(field => {
       const x = parseInt(field.dataset.row);
       const y = parseInt(field.dataset.col);
@@ -80,7 +80,7 @@ class Finder {
       const isFinish = thisFinder.finishField && x === thisFinder.finishField.row && y === thisFinder.finishField.col;
       // If statements to check if field contain class active / start / finish
       if (isActive || isStart) {
-        field.classList.add('active');
+        field.classList.add(classNames.finder.active);
         if(isStart){
           field.classList.add(classNames.finder.start);
         } else if (isFinish) {
@@ -88,7 +88,7 @@ class Finder {
         }
         thisFinder.grid[x][y] = true;
       } else {
-        field.classList.remove('active', classNames.finder.start, classNames.finder.finish);
+        field.classList.remove(classNames.finder.active, classNames.finder.start, classNames.finder.finish);
         thisFinder.grid[x][y] = false;
       }
     });
@@ -108,6 +108,7 @@ class Finder {
         e.preventDefault();
         if(e.target.classList.contains(classNames.finder.field)) {
           thisFinder.toggleField(e.target);
+          thisFinder.hintFields(e.target);
         }
       });
     }
@@ -134,15 +135,13 @@ class Finder {
         e.preventDefault();
         //thisFinder.changeStep(1);
       });
-
     }
-    
   }
 
   /* STEP 1 - allow user to select fields for route  */
   toggleField(fieldElem) {
     const thisFinder = this;
-
+    console.log(thisFinder);
     // get row and col info from field elem attrs
     const field = {
       row: parseInt(fieldElem.getAttribute('data-row'), 10),
@@ -153,8 +152,27 @@ class Finder {
     if(thisFinder.grid[field.row][field.col]) {
       thisFinder.grid[field.row][field.col] = false;
       fieldElem.classList.remove(classNames.finder.active);
-    }
+      fieldElem.classList.add(classNames.finder.hint);
+    
 
+      // remove hint class from neighbors
+      if (field.col > 1) {
+        const leftFieldElem = document.querySelector(`[data-row="${field.row}"][data-col="${field.col-1}"]`);
+        leftFieldElem.classList.remove(classNames.finder.hint);
+      }
+      if (field.col < 10) {
+        const rightFieldElem = document.querySelector(`[data-row="${field.row}"][data-col="${field.col+1}"]`);
+        rightFieldElem.classList.remove(classNames.finder.hint);
+      }
+      if (field.row > 1) {
+        const topFieldElem = document.querySelector(`[data-row="${field.row-1}"][data-col="${field.col}"]`);
+        topFieldElem.classList.remove(classNames.finder.hint);
+      }
+      if (field.row < 10) {
+        const bottomFieldElem = document.querySelector(`[data-row="${field.row+1}"][data-col="${field.col}"]`);
+        bottomFieldElem.classList.remove(classNames.finder.hint);
+      }
+    }
     else {
       // flatten object to array of values e.g. [false, false, false]
       const gridValues = Object.values(thisFinder.grid)
@@ -166,28 +184,94 @@ class Finder {
         // determine edge fields
         const edgeFields = [];
 
-        if(field.col > 1) edgeFields.push(thisFinder.grid[field.row][field.col-1]);//get field on the left value
-        if(field.col < 10) edgeFields.push(thisFinder.grid[field.row][field.col+1]); //get field on the right value
-        if(field.row > 1) edgeFields.push(thisFinder.grid[field.row-1][field.col]); //get field on the top value
-        if(field.row < 10) edgeFields.push(thisFinder.grid[field.row+1][field.col]); //get field on the bottom value
-        //console.log(edgeFields);
+        if (field.col > 1) {
+          const leftValue = thisFinder.grid[field.row][field.col - 1];
+          edgeFields.push(leftValue); //get field on the left value
+        }
 
+        if (field.col < 10) {
+          const rightValue = thisFinder.grid[field.row][field.col + 1];
+          edgeFields.push(rightValue); //get field on the right value
+        }
+
+        if (field.row > 1) {
+          const topValue = thisFinder.grid[field.row - 1][field.col];
+          edgeFields.push(topValue); //get field on the top value
+        }
+
+        if (field.row < 10) {
+          const bottomValue = thisFinder.grid[field.row + 1][field.col];
+          edgeFields.push(bottomValue); //get field on the bottom value
+        }
+        console.log(edgeFields);
+  
         // if clicked field doesn't touch at least one that is already selected -> show alert and finish function
-        if(!edgeFields.includes(true)) {
+        if (!edgeFields.includes(true)) {
           alert('A new field should touch at least one that is already selected!');
           return;
         }
       }
-
+  
       // select clicked field
       thisFinder.grid[field.row][field.col] = true;
-      fieldElem.classList.add(classNames.finder.active);
-
+      //console.log(fieldElem);
+      if(fieldElem.classList.contains(classNames.finder.hint) || fieldElem.classList.contains(classNames.finder.field)){
+        fieldElem.classList.add(classNames.finder.active);
+        fieldElem.classList.remove(classNames.finder.hint);
+      }
       //console.log(thisFinder.grid);
-
     }
   }
+
+  hintFields(fieldElem) {
+    const thisFinder = this;
+    const field = {
+      row: parseInt(fieldElem.getAttribute('data-row'), 10),
+      col: parseInt(fieldElem.getAttribute('data-col'), 10),
+    };
   
+    // loop through every field in the grid and add hint class to neighbors that are not active
+    for (let row = 1; row <= 10; row++) {
+      for (let col = 1; col <= 10; col++) {
+        const gridField = thisFinder.grid[row][col];
+        if (gridField === false && !(row === field.row && col === field.col)) {
+          // check if field has an active neighbor
+          let hasActiveNeighbor = false;
+          if (row > 1) {
+            const topField = thisFinder.grid[row - 1][col];
+            if (topField === true) {
+              hasActiveNeighbor = true;
+            }
+          }
+          if (row < 10) {
+            const bottomField = thisFinder.grid[row + 1][col];
+            if (bottomField === true) {
+              hasActiveNeighbor = true;
+            }
+          }
+          if (col > 1) {
+            const leftField = thisFinder.grid[row][col - 1];
+            if (leftField === true) {
+              hasActiveNeighbor = true;
+            }
+          }
+          if (col < 10) {
+            const rightField = thisFinder.grid[row][col + 1];
+            if (rightField === true) {
+              hasActiveNeighbor = true;
+            }
+          }
+          if (hasActiveNeighbor) {
+            const hintField = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if(!hintField.classList.contains(classNames.finder.active)){
+              hintField.classList.add(classNames.finder.hint);
+            }
+          }
+        }
+      }
+    }
+  }
+
   /* STEP 2 - allow user to select start and finish field from selected one */
   startFinish(fieldElem){
     const thisFinder = this;
@@ -303,7 +387,7 @@ class Finder {
         path.forEach(({ row, col }) => {
           const fieldElem = this.getFieldElem(row, col);
           if (fieldElem) {
-            fieldElem.classList.add('shortPath');
+            fieldElem.classList.add(classNames.finder.shortPath);
           }
         });
 
