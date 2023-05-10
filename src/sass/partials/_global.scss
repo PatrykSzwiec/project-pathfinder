@@ -36,7 +36,17 @@ footer{
 }
 
 // MEDIA QUERIES
-@media (max-width: 600px) {
+@media (max-width: 576px) and (max-width: 991px) {
+  footer {
+    margin-top: calc(70% + 20px);
+  }
+
+  .section-2 {
+    top: 15vh !important;
+  }
+}
+
+@media (max-width: 992px)  and (max-width: 1200px ){
   footer {
     margin-top: calc(70% + 20px);
   }

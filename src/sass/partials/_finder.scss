@@ -57,13 +57,36 @@
   background-color: blue;
 }
 
-@media only screen and (max-width: 600px) {
+// Media QUERIES
+@media (min-width: 576px) and (max-width: 991px) {
   .table {
-    width: 100%;
+    width: 500px;
 
     .field {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
     }
   }
+
+  .pathfinder-widget {
+    margin-top : 20vh !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px ) {
+  .table {
+    width: 800px;
+
+    .field {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  .pathfinder-widget {
+    margin-top : 20vh !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
 }
