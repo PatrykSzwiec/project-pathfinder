@@ -133,7 +133,8 @@ class Finder {
 
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
-        //thisFinder.changeStep(1);
+        thisFinder.clearFields();
+        thisFinder.changeStep(1);
       });
     }
   }
@@ -141,7 +142,7 @@ class Finder {
   /* STEP 1 - allow user to select fields for route  */
   toggleField(fieldElem) {
     const thisFinder = this;
-    console.log(thisFinder);
+    //console.log(thisFinder);
     // get row and col info from field elem attrs
     const field = {
       row: parseInt(fieldElem.getAttribute('data-row'), 10),
@@ -203,7 +204,7 @@ class Finder {
           const bottomValue = thisFinder.grid[field.row + 1][field.col];
           edgeFields.push(bottomValue); //get field on the bottom value
         }
-        console.log(edgeFields);
+        //console.log(edgeFields);
   
         // if clicked field doesn't touch at least one that is already selected -> show alert and finish function
         if (!edgeFields.includes(true)) {
@@ -428,6 +429,21 @@ class Finder {
     }
   
     console.log('No path found');
+  }
+  clearFields() {
+    const thisFinder = this;
+    // Clear grid
+    thisFinder.grid = {};
+    for(let row = 1; row <= 10; row++) {
+      thisFinder.grid[row] = {};
+      for(let col = 1; col <= 10; col++) {
+        thisFinder.grid[row][col] = false;
+      }
+    }
+  
+    // Clear startField and finishField
+    thisFinder.startField = null;
+    thisFinder.finishField = null;
   }
 }
 export default Finder;
