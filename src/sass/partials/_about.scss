@@ -1,6 +1,6 @@
 .about-widget {
   color: white;
-  margin-top: -10vw;
+  margin-top: -50vh;
   position: relative;
 }
 
@@ -13,7 +13,7 @@
   img {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 2vw;
     z-index: 1;
   }
 }
@@ -23,24 +23,24 @@
   position: relative;
   z-index: 2;
   height: 30vh;
-  top: 38vh;
+  top: 45vh;
   right: 0;
 
   img {
     position: absolute;
     width: 65vw;
-    right: 0;
+    right: -15%;
   }
 }
 
 .journeys {
-  top: 100%;
-  left: 20%;
+  top: 115%;
+  left: 30%;
 }
 
 .boredom {
   top: 0;
-  left: 0;
+  left: 10%;
 }
 
 .journeys , .boredom {

@@ -27,12 +27,16 @@ body {
 
 footer{
   position: relative;
-  margin-top: calc(40% + 20px);
+  margin-top: calc(50% + 20px);
+  margin-bottom: 10vh;
   text-align: center;
 }
 
-.footer-content p{
+#footer-content {
   color: $color-light;
+  font-family: $font-default;
+  font-weight: $font-semibold;
+  letter-spacing: 0.25vw !important;
 }
 
 // MEDIA QUERIES
