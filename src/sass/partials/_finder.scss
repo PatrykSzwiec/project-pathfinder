@@ -65,7 +65,7 @@
 }
 
 .field.hint{
-  background-color: rgba(0, 0, 255, 0.2);
+  background-color: rgba(0, 0, 255, 0.2) !important;
 }
 
 // Media QUERIES
@@ -80,7 +80,7 @@
   }
 
   .pathfinder-widget {
-    margin-top : 20vh !important;
+    margin-top : 35vh !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }
@@ -95,7 +95,7 @@
     }
   }
   .pathfinder-widget {
-    margin-top : 20vh !important;
+    margin-top : 35vw !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }

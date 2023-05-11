@@ -29,7 +29,7 @@
   img {
     position: absolute;
     width: 65vw;
-    right: -15%;
+    right: -15% !important;
   }
 }
 
@@ -67,23 +67,55 @@
 
 // MEDIA QUERIES
 @media (min-width: 576px) and (max-width: 991px) {
-  .header {
-    height: 400px;
+  .about-widget {
+    margin-top: -5vh;
   }
+
+  .journeys {
+    top: 70%;
+    left: 45%;
+  }
+
+  .boredom {
+    top: 80%;
+  }
+
   .section-1 {
     img {
       width: 65vw;
     }
   }
+
+  .section-2 {
+    img {
+      top: 70%;
+    }
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1200px ) {
-  .header {
-    height: 400px;
+  .about-widget {
+    margin-top: -5vh;
   }
+
+  .journeys {
+    top: 70%;
+    left: 45%;
+  }
+
+  .boredom {
+    top: 80%;
+  }
+
   .section-1 {
     img {
       width: 65vw;
+    }
+  }
+
+  .section-2 {
+    img {
+      top: 70%;
     }
   }
 }
