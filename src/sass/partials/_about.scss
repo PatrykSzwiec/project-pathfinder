@@ -1,6 +1,6 @@
 .about-widget {
   color: white;
-  margin-top: -50vh;
+  margin-top: -40vh;
   position: relative;
 }
 
@@ -9,6 +9,7 @@
   width: 80vw;
   z-index: 1;
   height: 30vh;
+  margin-top: 20vh;
 
   img {
     position: absolute;
@@ -66,9 +67,38 @@
 }
 
 // MEDIA QUERIES
+@media (max-width: 575px) {
+  .about-widget {
+    margin-top: -30vh;
+  }
+
+  .journeys {
+    top: 70%;
+    left: 45%;
+  }
+
+  .boredom {
+    top: 80%;
+  }
+
+  .section-1 {
+    margin-top: -20vh;
+    img {
+      width: 65vw;
+    }
+  }
+
+  .section-2 {
+    img {
+      top: 70%;
+    }
+  }
+
+}
+
 @media (min-width: 576px) and (max-width: 991px) {
   .about-widget {
-    margin-top: -5vh;
+    margin-top: -25vh;
   }
 
   .journeys {

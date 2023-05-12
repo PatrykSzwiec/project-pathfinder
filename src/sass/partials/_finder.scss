@@ -3,7 +3,7 @@
 }
 
 .finder-wrapper{
-  margin-top: -30vw;
+  margin-top: -10vw;
   width: 100vw;
   height: 70vw;
   text-align: center;
@@ -19,6 +19,10 @@
 
 }
 
+.finder-mobile {
+  display:none;
+}
+
 .btn {
   width: 200px;
   height: 60px;
@@ -29,7 +33,9 @@
   color: $color-light;
   text-transform: uppercase;
   background-color: $color-brown;
-  margin-top: 30px;
+  margin: 30px auto;
+  cursor: pointer;
+  padding-top: 20px;
 }
 
 /* JS Finder app styles */
@@ -69,6 +75,16 @@
 }
 
 // Media QUERIES
+@media (max-width: 575px) {
+  .pathfinder-widget {
+    display: none !important;
+  }
+
+  .finder-mobile {
+    display: block !important;
+    margin-top: -50vh;
+  }
+}
 @media (min-width: 576px) and (max-width: 991px) {
   .table {
     width: 500px;
@@ -94,6 +110,7 @@
       height: 80px;
     }
   }
+
   .pathfinder-widget {
     margin-top : 35vw !important;
     margin-left: auto !important;
