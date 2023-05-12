@@ -102,7 +102,28 @@ class Finder {
     if(thisFinder.step === 1) {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
-        thisFinder.changeStep(2);
+        console.log(thisFinder);
+        // Using hasOwnProperty to check if thisFinder.grid have certain properties
+        var trueValuesCount = 0;
+        for (var row in thisFinder.grid) {
+          if (thisFinder.grid.hasOwnProperty(row)) {
+            for (var col in thisFinder.grid[row]) {
+              if (thisFinder.grid[row].hasOwnProperty(col) && thisFinder.grid[row][col] === true) {
+                trueValuesCount++;
+              }
+            }
+          }
+        }
+        console.log(trueValuesCount);
+
+        //Check if there is at least 3 selected fields
+        if (trueValuesCount >= 3) {
+          console.log(thisFinder);
+          thisFinder.changeStep(2);
+        } else {
+          alert('Select at least 3 fields');
+        }
+
       });
 
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
@@ -117,9 +138,12 @@ class Finder {
     else if(thisFinder.step === 2) {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
-        thisFinder.changeStep(3);
+        if(thisFinder.startField == undefined || thisFinder.finishField == undefined){
+          alert('Select Start and Finish fields!');
+        }else{
+          thisFinder.changeStep(3);
+        }
       });
-
       thisFinder.element.querySelector(select.finder.grid).addEventListener('click', function(e) {
         e.preventDefault();
         if (e.target.classList.contains(classNames.finder.field)) {
@@ -216,6 +240,7 @@ class Finder {
       // select clicked field
       thisFinder.grid[field.row][field.col] = true;
       //console.log(fieldElem);
+
       if(fieldElem.classList.contains(classNames.finder.hint) || fieldElem.classList.contains(classNames.finder.field)){
         fieldElem.classList.add(classNames.finder.active);
         fieldElem.classList.remove(classNames.finder.hint);
