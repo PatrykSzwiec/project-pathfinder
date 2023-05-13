@@ -102,7 +102,8 @@ class Finder {
     if(thisFinder.step === 1) {
       thisFinder.element.querySelector(select.finder.submitBtn).addEventListener('click', function(e) {
         e.preventDefault();
-        console.log(thisFinder);
+        //console.log(thisFinder);
+
         // Using hasOwnProperty to check if thisFinder.grid have certain properties
         var trueValuesCount = 0;
         for (var row in thisFinder.grid) {
@@ -114,11 +115,11 @@ class Finder {
             }
           }
         }
-        console.log(trueValuesCount);
+        //console.log(trueValuesCount);
 
         //Check if there is at least 3 selected fields
         if (trueValuesCount >= 3) {
-          console.log(thisFinder);
+          //console.log(thisFinder);
           thisFinder.changeStep(2);
         } else {
           alert('Select at least 3 fields');
@@ -407,7 +408,7 @@ class Finder {
         const startField = { row: start.row, col: start.col };
         path.push(startField);
         path.reverse();
-        console.log('Shortest path:', path);
+        //console.log('Shortest path:', path);
 
         // Add class 'shortPath' to each field in the path
         path.forEach(({ row, col }) => {
@@ -453,7 +454,7 @@ class Finder {
       });
     }
 
-    console.log('No path found');
+    alert('No path found');
   }
   clearFields() {
     const thisFinder = this;
